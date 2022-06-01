@@ -1,0 +1,95 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-abfaedfd.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-d36043ac.js",
+      "_index-fb66156c.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "_Earthquakes-e95c3c2c.js",
+      "src/routes/MiniScroller.svelte",
+      "src/routes/index.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "pages/__layout.svelte-8eae3960.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-d36043ac.js"
+    ],
+    "css": [
+      "assets/pages/__layout.svelte-8d4c8304.css"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-ade20c23.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-d36043ac.js"
+    ]
+  },
+  "src/routes/MiniScroller.svelte": {
+    "file": "pages/MiniScroller.svelte-5fd002f6.js",
+    "src": "src/routes/MiniScroller.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-d36043ac.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-0a3f36ee.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-d36043ac.js",
+      "_Earthquakes-e95c3c2c.js",
+      "_index-fb66156c.js",
+      "src/routes/MiniScroller.svelte"
+    ],
+    "css": [
+      "assets/pages/index.svelte-fe77ab8e.css"
+    ]
+  },
+  "src/routes/Earthquakes.svelte": {
+    "file": "pages/Earthquakes.svelte-18631d3d.js",
+    "src": "src/routes/Earthquakes.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-d36043ac.js",
+      "_Earthquakes-e95c3c2c.js",
+      "src/routes/MiniScroller.svelte",
+      "_index-fb66156c.js"
+    ]
+  },
+  "_index-d36043ac.js": {
+    "file": "chunks/index-d36043ac.js"
+  },
+  "_index-fb66156c.js": {
+    "file": "chunks/index-fb66156c.js",
+    "imports": [
+      "_index-d36043ac.js"
+    ]
+  },
+  "_Earthquakes-e95c3c2c.js": {
+    "file": "chunks/Earthquakes-e95c3c2c.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-d36043ac.js",
+      "src/routes/MiniScroller.svelte",
+      "_index-fb66156c.js"
+    ],
+    "css": [
+      "assets/Earthquakes-fd0e46c2.css"
+    ]
+  }
+}

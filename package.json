@@ -1,0 +1,44 @@
+{
+  "name": "@beyonk/svelte-mapbox",
+  "version": "8.1.4",
+  "main": "src/lib/components.js",
+  "svelte": "src/lib/components.js",
+  "scripts": {
+    "dev": "svelte-kit dev --port 3000",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@beyonk/eslint-config": "^6.0.0",
+    "@beyonk/svelte-mapbox": "^7.6.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@supabase/supabase-js": "^1.8.0",
+    "@sveltejs/adapter-netlify": "^1.0.0-next.54",
+    "@sveltejs/kit": "1.0.0-next.319",
+    "@turf/bbox": "^6.5.0",
+    "@turf/bbox-polygon": "^6.5.0",
+    "@turf/buffer": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
+    "@turf/turf": "^6.5.0",
+    "eslint": "^7.31.0",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "osmtogeojson": "^3.0.0-beta.4",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.34.0",
+    "svelte2tsx": "^0.4.2",
+    "typescript": "^4.3.5"
+  },
+  "type": "module",
+  "volta": {
+    "node": "16.5.0"
+  },
+  "dependencies": {
+    "@sveltejs/adapter-auto": "^1.0.0-next.38",
+    "@sveltejs/adapter-cloudflare": "^1.0.0-next.18",
+    "encoding": "^0.1.13",
+    "svelecte": "^3.7.7",
+    "which-country": "^1.0.0"
+  }
+}
