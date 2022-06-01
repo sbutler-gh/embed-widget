@@ -1,8 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
-  
-  import Content from './Content.svelte';
-  
+
   
   //   // This is used to destroy and refresh the <Content > component when new content is available, so the map source and layers are redrawn with the updated/new data.
   //     let unique = {}
