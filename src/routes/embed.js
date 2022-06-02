@@ -1,4 +1,4 @@
-import Embed from './Embed.svelte';
+import Embed from './embed.svelte';
 
 var div = document.createElement('DIV');
 var script = document.currentScript;

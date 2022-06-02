@@ -1,8 +1,50 @@
 <script>
 
     import {afterUpdate, getContext, onMount, setContext} from 'svelte';
+    // import { page } from "$app/stores"; 
+
+    let data = [
+        {"org": "Declare Emergency",
+        "coordinates": "38.889248, -77.050636",
+        "city": "Washington DC",
+        "country": "USA",
+        "website": "https://www.declareemergency.org/",
+        "onboarding": `<p>Fill out form at <a target="_blank" href="https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714">https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714/</a></p>`,
+        "form_url": "https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714",
+        "events_url": "https://linktr.ee/declareemergency"
+        },
+        {"org": "XR DC",
+        "coordinates": "38.889248, -77.050636",
+        "city": "Washington DC",
+        "country": "USA",
+        "website": "https://www.xrdc.org/",
+        "onboarding": `<p>Fill out form at <a target="_blank" href="https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link">https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link</a></p>`,
+        "form_url": "https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link",
+        "events_url": "https://www.xrdc.org/events"
+        },
+        {"org": "XR San Francisco",
+        "coordinates": "37.733795, -122.446747",
+        "city": "San Francisco",
+        "country": "USA",
+        "website": "https://extinctionrebellionsfbay.org/",
+        "onboarding": `<p>1. <a target="_blank" href="https://www.youtube.com/watch?v=UKFU0kPgF_M">Watch a 30 minute orientation</a> to learn more about Extinction Rebellion SF Bay.</p><p>After watching the orientation video, sign up for a 30 minute 1:1 chat with an XR SF Bay organizer to ask any questions and find your place in our chapter:</p>
+        <ul>
+            <li><a href="https://calendly.com/gretchen-sf/30min" target="_blank">Schedule time with Gretchen</a> (outreach, general questions)</li>
+            <li><a href="https://calendly.com/xrsfwelcome/121_chat" target="_blank">Schedule time with Betsy</a> (street theater, outreach, general questions)</li>
+            <li><a href="https://calendly.com/rayekahn/30min" target="_blank">Schedule time with Raye</a> (nonviolent direct action, regenerative cultures)</li>
+            <li><a href="https://calendly.com/tiffanybbarber/30min" target="_blank">Schedule time with Tiffany</a> (digital strategy, outreach and training)</li>
+            <li><a href="https://calendly.com/leahredwood/30min" target="_blank">Schedule time with Leah</a> (action planning, allyship, finance)</li>
+            <li><a href="https://calendly.com/jadenorthrup_xrsfbay/30min" target="_blank">Schedule time with Jade</a> (social media, photo/video, tech)</li>
+            </ul>
+            <p>Alternatively: check out our <a href="https://docs.google.com/document/d/1yksVh2xTR3cZUIJy72xFVVEB_rPtL4fpRquJ1wZKZ9I/edit?usp=sharing" target="_blank">Starter Guide</a> if you'd like an in-depth read or contact a <a href="https://extinctionrebellionsfbay.org/connect" target="_blank">working group</a> if you have questions.</p>`,
+        "form_url": "https://actionnetwork.org/forms/xr-bay-area-sign-up",
+        "events_url": "https://extinctionrebellionsfbay.org/events/"
+        },
+    ]
 
     onMount(async() => {
+
+        // console.log(page);
 
   ipToCoordinates()
 
@@ -50,10 +92,12 @@ document.getElementById('city').innerText = city;
     
     </script>
     
-    <h1>Direct action widget.  Displaying at {window.location.origin}</h1>
+    <!-- <h1>Direct action widget.  Displaying at</h1> -->
 
-    <p>Other information, to give a sense of what we can do:</p>
-    <ul>
-        <li>Coordinates loaded on page load (for widget initialization): <p id="coordinates"></p></li>
-        <li>City loaded on page load (for widget initialization): <p id="city"></p></li>
-    </ul>
+    <div>Coordinates: <p id="coordinates"></p></div>
+    <div>City: <p id="city"></p></div>
+
+    {#each data as item}
+    <h1>{item.org}</h1>
+    {@html item.onboarding}
+    {/each}
