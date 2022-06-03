@@ -352,7 +352,7 @@
     	append_styles(target, "svelte-lncimr", "#banner.svelte-lncimr{overflow-y:scroll}@media only screen and (min-width: 601px){#banner.svelte-lncimr{max-width:75%;max-height:300px}}@media only screen and (max-width: 600px){#banner.svelte-lncimr{max-width:100%;max-height:200px}}");
     }
 
-    // (208:4) {:else}
+    // (210:4) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -371,7 +371,7 @@
     	};
     }
 
-    // (201:4) {#if content}
+    // (203:4) {#if content}
     function create_if_block(ctx) {
     	let h2;
     	let a;
@@ -388,12 +388,7 @@
     	let html_tag;
     	let raw_value = /*data*/ ctx[2][/*i*/ ctx[1]].onboarding + "";
     	let t6;
-    	let p0;
-    	let t7;
-    	let t8_value = /*data*/ ctx[2][/*i*/ ctx[1]].contact_email + "";
-    	let t8;
-    	let t9;
-    	let p1;
+    	let p;
     	let span;
     	let mounted;
     	let dispose;
@@ -412,11 +407,7 @@
     			t5 = space();
     			html_tag = new HtmlTag();
     			t6 = space();
-    			p0 = element("p");
-    			t7 = text("Contact: ");
-    			t8 = text(t8_value);
-    			t9 = space();
-    			p1 = element("p");
+    			p = element("p");
     			span = element("span");
     			span.textContent = "See more organizations";
     			attr(a, "href", a_href_value = /*data*/ ctx[2][/*i*/ ctx[1]].website);
@@ -438,12 +429,8 @@
     			insert(target, t5, anchor);
     			html_tag.m(raw_value, target, anchor);
     			insert(target, t6, anchor);
-    			insert(target, p0, anchor);
-    			append(p0, t7);
-    			append(p0, t8);
-    			insert(target, t9, anchor);
-    			insert(target, p1, anchor);
-    			append(p1, span);
+    			insert(target, p, anchor);
+    			append(p, span);
 
     			if (!mounted) {
     				dispose = listen(span, "click", /*click_handler*/ ctx[3]);
@@ -459,7 +446,6 @@
 
     			if (dirty & /*data, i*/ 6 && t2_value !== (t2_value = /*data*/ ctx[2][/*i*/ ctx[1]].summary + "")) set_data(t2, t2_value);
     			if (dirty & /*data, i*/ 6 && raw_value !== (raw_value = /*data*/ ctx[2][/*i*/ ctx[1]].onboarding + "")) html_tag.p(raw_value);
-    			if (dirty & /*data, i*/ 6 && t8_value !== (t8_value = /*data*/ ctx[2][/*i*/ ctx[1]].contact_email + "")) set_data(t8, t8_value);
     		},
     		d(detaching) {
     			if (detaching) detach(h2);
@@ -470,9 +456,7 @@
     			if (detaching) detach(t5);
     			if (detaching) html_tag.d();
     			if (detaching) detach(t6);
-    			if (detaching) detach(p0);
-    			if (detaching) detach(t9);
-    			if (detaching) detach(p1);
+    			if (detaching) detach(p);
     			mounted = false;
     			dispose();
     		}
@@ -701,6 +685,8 @@
     		i < data.length - 1
     		? $$invalidate(1, i = i + 1)
     		: $$invalidate(1, i = 0);
+
+    		document.getElementById("banner").scrollTop = 80;
     	};
 
     	return [content, i, data, click_handler];

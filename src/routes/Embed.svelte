@@ -1,4 +1,6 @@
 <script>
+import { goto } from '$app/navigation';
+
 
     import {afterUpdate, getContext, onMount, setContext} from 'svelte';
     // import LoadingSpinner from "$lib/LoadingSpinner.svelte"
@@ -203,8 +205,8 @@ console.log(data[0]);
     <em>{data[i].summary}</em>
     <h4>Want to get involved?</h4>
     {@html data[i].onboarding}
-    <p>Contact: {data[i].contact_email}</p>
-    <p><span style="color: blue; text-decoration: underline; cursor: pointer;" on:click={function() { i < (data.length - 1) ? i = i + 1 : i = 0;}}>See more organizations</span></p>
+    <!-- <p>Contact: {data[i].contact_email}</p> -->
+    <p><span style="color: blue; text-decoration: underline; cursor: pointer;" on:click={function() { i < (data.length - 1) ? i = i + 1 : i = 0; document.getElementById("banner").scrollTop = 80;}}>See more organizations</span></p>
     {:else}
     <p><em>Loading ...</em></p>
     {/if}
