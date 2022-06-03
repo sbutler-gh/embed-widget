@@ -59,6 +59,10 @@
     function space() {
         return text(' ');
     }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -67,6 +71,9 @@
     }
     function children(element) {
         return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
     }
     function set_style(node, key, value, important) {
         if (value === null) {
@@ -344,123 +351,100 @@
     }
 
     function create_fragment(ctx) {
-    	let div0;
-    	let t1;
-    	let div1;
-    	let t3;
-    	let div2;
+    	let div;
     	let h3;
-    	let t6;
+    	let t0;
+    	let input;
+    	let t1;
     	let h2;
     	let a;
-    	let t7_value = /*data*/ ctx[0][0].org + "";
-    	let t7;
-    	let t8;
+    	let t2_value = /*data*/ ctx[1][0].org + "";
+    	let t2;
+    	let t3;
     	let em;
-    	let t10;
+    	let t5;
     	let h4;
-    	let t12;
+    	let t7;
     	let html_tag;
-    	let raw_value = /*data*/ ctx[0][0].onboarding + "";
-    	let t13;
-    	let p2;
+    	let raw_value = /*data*/ ctx[1][0].onboarding + "";
+    	let t8;
+    	let p;
+    	let mounted;
+    	let dispose;
 
     	return {
     		c() {
-    			div0 = element("div");
-    			div0.innerHTML = `Coordinates: <p id="coordinates"></p>`;
-    			t1 = space();
-    			div1 = element("div");
-    			div1.innerHTML = `City: <p id="city"></p>`;
-    			t3 = space();
-    			div2 = element("div");
+    			div = element("div");
     			h3 = element("h3");
-    			h3.innerHTML = `Direct action organizations near <span style="text-decoration: underline">Washington DC</span>`;
-    			t6 = space();
+    			t0 = text("Direct action organizations near\n        ");
+    			input = element("input");
+    			t1 = space();
     			h2 = element("h2");
     			a = element("a");
-    			t7 = text(t7_value);
-    			t8 = space();
+    			t2 = text(t2_value);
+    			t3 = space();
     			em = element("em");
-    			em.textContent = `${/*data*/ ctx[0][0].summary}`;
-    			t10 = space();
+    			em.textContent = `${/*data*/ ctx[1][0].summary}`;
+    			t5 = space();
     			h4 = element("h4");
     			h4.textContent = "Want to get involved?";
-    			t12 = space();
+    			t7 = space();
     			html_tag = new HtmlTag();
-    			t13 = space();
-    			p2 = element("p");
-    			p2.textContent = `Contact: ${/*data*/ ctx[0][0].contact_email}`;
-    			attr(a, "href", /*data*/ ctx[0][0].website);
+    			t8 = space();
+    			p = element("p");
+    			p.textContent = `Contact: ${/*data*/ ctx[1][0].contact_email}`;
+    			attr(input, "type", "text");
+    			attr(a, "href", /*data*/ ctx[1][0].website);
     			attr(a, "target", "_blank");
-    			html_tag.a = t13;
-    			attr(div2, "id", "banner");
-    			set_style(div2, "border", "solid 1px black");
-    			set_style(div2, "padding", "10px");
-    			attr(div2, "class", "svelte-lncimr");
+    			html_tag.a = t8;
+    			attr(div, "id", "banner");
+    			set_style(div, "border", "solid 1px black");
+    			set_style(div, "padding", "10px");
+    			attr(div, "class", "svelte-lncimr");
     		},
     		m(target, anchor) {
-    			insert(target, div0, anchor);
-    			insert(target, t1, anchor);
-    			insert(target, div1, anchor);
-    			insert(target, t3, anchor);
-    			insert(target, div2, anchor);
-    			append(div2, h3);
-    			append(div2, t6);
-    			append(div2, h2);
+    			insert(target, div, anchor);
+    			append(div, h3);
+    			append(h3, t0);
+    			append(h3, input);
+    			set_input_value(input, /*city*/ ctx[0]);
+    			append(div, t1);
+    			append(div, h2);
     			append(h2, a);
-    			append(a, t7);
-    			append(div2, t8);
-    			append(div2, em);
-    			append(div2, t10);
-    			append(div2, h4);
-    			append(div2, t12);
-    			html_tag.m(raw_value, div2);
-    			append(div2, t13);
-    			append(div2, p2);
+    			append(a, t2);
+    			append(div, t3);
+    			append(div, em);
+    			append(div, t5);
+    			append(div, h4);
+    			append(div, t7);
+    			html_tag.m(raw_value, div);
+    			append(div, t8);
+    			append(div, p);
+
+    			if (!mounted) {
+    				dispose = listen(input, "input", /*input_input_handler*/ ctx[2]);
+    				mounted = true;
+    			}
     		},
-    		p: noop,
+    		p(ctx, [dirty]) {
+    			if (dirty & /*city*/ 1 && input.value !== /*city*/ ctx[0]) {
+    				set_input_value(input, /*city*/ ctx[0]);
+    			}
+    		},
     		i: noop,
     		o: noop,
     		d(detaching) {
-    			if (detaching) detach(div0);
-    			if (detaching) detach(t1);
-    			if (detaching) detach(div1);
-    			if (detaching) detach(t3);
-    			if (detaching) detach(div2);
+    			if (detaching) detach(div);
+    			mounted = false;
+    			dispose();
     		}
     	};
     }
 
-    async function ipToCoordinates() {
+    function instance($$self, $$props, $$invalidate) {
     	let coordinates;
     	let city;
 
-    	// const ip = await fetch("https://serene-journey-42564.herokuapp.com/https://api.ipify.org?format=json&callback=getIP");
-    	// const ip_json = await ip.json();
-    	// console.log(ip_json);
-    	// const request = await fetch(`https://serene-journey-42564.herokuapp.com/ipinfo.io/${ip_json["ip"]}/geo?token=d41bed18e5fda2`, {
-    	//     method: 'GET',
-    	//     "Content-Type": "application/json",
-    	//     "charset": "utf-8",
-    	//     "Access-Control-Allow-Headers": "X-Requested-With",
-    	//     "X-Requested-With": "XMLHttpRequest"   
-    	// });
-    	// const json = await request.json()
-    	// console.log(json);
-    	// coordinates = json.loc.split(',');
-    	// console.log(coordinates);
-    	// coordinates = {"lat": coordinates[0], "lng": coordinates[1]};
-    	coordinates = { "lat": 38.886503, "lng": -77.1842802 };
-
-    	// city = json.city;
-    	// country = json.country;
-    	document.getElementById('coordinates').innerText = JSON.stringify(coordinates);
-
-    	document.getElementById('city').innerText = city;
-    }
-
-    function instance($$self) {
     	let data = [
     		{
     			"org": "Declare Emergency",
@@ -514,7 +498,40 @@
     		ipToCoordinates();
     	});
 
-    	return [data];
+    	// We take the user's IP, get coordinates from it (an approximate location — usually the data center nearest them), and update the map location to those coordinates.
+    	async function ipToCoordinates() {
+    		const ip = await fetch("https://serene-journey-42564.herokuapp.com/https://api.ipify.org?format=json&callback=getIP");
+    		const ip_json = await ip.json();
+    		console.log(ip_json);
+
+    		const request = await fetch(`https://serene-journey-42564.herokuapp.com/ipinfo.io/${ip_json["ip"]}/geo?token=d41bed18e5fda2`, {
+    			method: 'GET',
+    			"Content-Type": "application/json",
+    			"charset": "utf-8",
+    			"Access-Control-Allow-Headers": "X-Requested-With",
+    			"X-Requested-With": "XMLHttpRequest"
+    		});
+
+    		const json = await request.json();
+    		console.log(json);
+    		coordinates = json.loc.split(',');
+    		console.log(coordinates);
+
+    		coordinates = {
+    			"lat": coordinates[0],
+    			"lng": coordinates[1]
+    		};
+
+    		$$invalidate(0, city = json.city);
+    	} // coordinates = {"lat": 38.886503, "lng": -77.1842802};
+    	// document.getElementById('coordinates').innerText = JSON.stringify(coordinates);
+
+    	function input_input_handler() {
+    		city = this.value;
+    		$$invalidate(0, city);
+    	}
+
+    	return [city, data, input_input_handler];
     }
 
     class Embed extends SvelteComponent {

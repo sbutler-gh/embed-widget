@@ -1,7 +1,15 @@
 <script>
 
     import {afterUpdate, getContext, onMount, setContext} from 'svelte';
+    // import { Geocoder } from '$lib/geocoder';
+
     // import { page } from "$app/stores"; 
+
+    let coordinates;
+
+let city;
+let country;
+let geocoder_input;
 
     let data = [
         {"org": "Declare Emergency",
@@ -59,39 +67,36 @@
      // We take the user's IP, get coordinates from it (an approximate location — usually the data center nearest them), and update the map location to those coordinates.
      async function ipToCoordinates() {
 
-let coordinates;
 
-let city;
-let country;
+const ip = await fetch("https://serene-journey-42564.herokuapp.com/https://api.ipify.org?format=json&callback=getIP");
+
+const ip_json = await ip.json();
+console.log(ip_json);
+
+const request = await fetch(`https://serene-journey-42564.herokuapp.com/ipinfo.io/${ip_json["ip"]}/geo?token=d41bed18e5fda2`, {
+    method: 'GET',
+    "Content-Type": "application/json",
+    "charset": "utf-8",
+    "Access-Control-Allow-Headers": "X-Requested-With",
+    "X-Requested-With": "XMLHttpRequest"   
+});
+
+const json = await request.json()
+
+console.log(json);
+
+coordinates = json.loc.split(',');
+console.log(coordinates);
+coordinates = {"lat": coordinates[0], "lng": coordinates[1]};
 
 
-// const ip = await fetch("https://serene-journey-42564.herokuapp.com/https://api.ipify.org?format=json&callback=getIP");
+city = json.city;
+country = json.country;
+geocoder_input = `${city}, ${country}`
 
-// const ip_json = await ip.json();
-// console.log(ip_json);
-
-// const request = await fetch(`https://serene-journey-42564.herokuapp.com/ipinfo.io/${ip_json["ip"]}/geo?token=d41bed18e5fda2`, {
-//     method: 'GET',
-//     "Content-Type": "application/json",
-//     "charset": "utf-8",
-//     "Access-Control-Allow-Headers": "X-Requested-With",
-//     "X-Requested-With": "XMLHttpRequest"   
-// });
-
-// const json = await request.json()
-
-// console.log(json);
-
-// coordinates = json.loc.split(',');
-// console.log(coordinates);
-// coordinates = {"lat": coordinates[0], "lng": coordinates[1]};
-coordinates = {"lat": 38.886503, "lng": -77.1842802};
-
-// city = json.city;
-// country = json.country;
-
-document.getElementById('coordinates').innerText = JSON.stringify(coordinates);
-document.getElementById('city').innerText = city;
+// coordinates = {"lat": 38.886503, "lng": -77.1842802};
+// document.getElementById('coordinates').innerText = JSON.stringify(coordinates);
+// document.getElementById('city').innerText = city;
 
 }
 
@@ -100,12 +105,16 @@ document.getElementById('city').innerText = city;
     
     <!-- <h1>Direct action widget.  Displaying at</h1> -->
 
-    <div>Coordinates: <p id="coordinates"></p></div>
-    <div>City: <p id="city"></p></div>
+    <!-- <div>Coordinates: <p id="coordinates"></p></div>
+    <div>City: <p id="city"></p></div> -->
 
     <div id="banner" style="border: solid 1px black; padding: 10px;">
     <!-- <h3>Get involved in direct action near <span style="text-decoration: underline">Washington DC</span></h3> -->
-    <h3>Direct action organizations near <span style="text-decoration: underline">Washington DC</span></h3>
+    <h3>Direct action organizations near
+        <input type="text" bind:value={city}>
+         <!-- <span style="text-decoration: underline">Washington DC</span> -->
+    <!-- <Geocoder placeholder={"Enter new location"} accessToken="pk.eyJ1IjoibGV0b3VycG93ZXJzY29tYmluZSIsImEiOiJjazFmN3N0eTUwb3JwM2JwYWk4ZXB1enNtIn0._UjpOqZIeiWqhscosubipw" on:result={function() {console.log(e)}}></Geocoder> -->
+    </h3>
     <h2><a href={data[0].website} target="_blank">{data[0].org}</a></h2>
     <em>{data[0].summary}</em>
     <h4>Want to get involved?</h4>
