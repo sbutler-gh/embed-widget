@@ -1,6 +1,7 @@
 <script>
 
     import {afterUpdate, getContext, onMount, setContext} from 'svelte';
+    // import LoadingSpinner from "$lib/LoadingSpinner.svelte"
     // import { Geocoder } from '$lib/geocoder';
 
     // import { page } from "$app/stores"; 
@@ -10,6 +11,8 @@
 let city;
 let country;
 let geocoder_input;
+let content = false;
+let i = 0;
 
     let data = [
         {"org": "Declare Emergency",
@@ -24,7 +27,7 @@ let geocoder_input;
         "contact_email": "declareemergency@protonmail.com"
         },
         {"org": "XR DC",
-        "summary": "Declare Emergency is an organization focused on direct action in the Washington DC area, to get the U.S. government to declare a climate emergency.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+        "summary": "XR DC is an organization focused on direct action in the Washington DC area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
         "coordinates": "38.889248, -77.050636",
         "city": "Washington DC",
         "country": "USA",
@@ -35,7 +38,7 @@ let geocoder_input;
         "contact_email": "declareemergency@protonmail.com"
         },
         {"org": "XR San Francisco",
-        "summary": "Declare Emergency is an organization focused on direct action in the Washington DC area, to get the U.S. government to declare a climate emergency.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+        "summary": "XR San Francisco is an organization focused on direct action in the Bay Area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
         "coordinates": "37.733795, -122.446747",
         "city": "San Francisco",
         "country": "USA",
@@ -93,6 +96,8 @@ coordinates = {"lat": coordinates[0], "lng": coordinates[1]};
 city = json.city;
 country = json.country;
 geocoder_input = `${city}, ${country}`
+content = true
+// i = 0;
 
 // coordinates = {"lat": 38.886503, "lng": -77.1842802};
 // document.getElementById('coordinates').innerText = JSON.stringify(coordinates);
@@ -115,11 +120,16 @@ geocoder_input = `${city}, ${country}`
          <!-- <span style="text-decoration: underline">Washington DC</span> -->
     <!-- <Geocoder placeholder={"Enter new location"} accessToken="pk.eyJ1IjoibGV0b3VycG93ZXJzY29tYmluZSIsImEiOiJjazFmN3N0eTUwb3JwM2JwYWk4ZXB1enNtIn0._UjpOqZIeiWqhscosubipw" on:result={function() {console.log(e)}}></Geocoder> -->
     </h3>
-    <h2><a href={data[0].website} target="_blank">{data[0].org}</a></h2>
-    <em>{data[0].summary}</em>
+    {#if content}
+    <h2><a href={data[i].website} target="_blank">{data[i].org}</a></h2>
+    <em>{data[i].summary}</em>
     <h4>Want to get involved?</h4>
-    {@html data[0].onboarding}
-    <p>Contact: {data[0].contact_email}</p>
+    {@html data[i].onboarding}
+    <p>Contact: {data[i].contact_email}</p>
+    <p><span style="color: blue; text-decoration: underline; cursor: pointer;" on:click={function() { i < 2 ? i = i + 1 : i = 0;}}>See more organizations</span></p>
+    {:else}
+    <p><em>Loading ...</em></p>
+    {/if}
     <!-- {#each data as item}
     <h1>{item.org}</h1>
     {@html item.onboarding}
