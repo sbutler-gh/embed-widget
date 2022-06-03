@@ -77,9 +77,6 @@
         if (text.wholeText !== data)
             text.data = data;
     }
-    function set_input_value(input, value) {
-        input.value = value == null ? '' : value;
-    }
     function set_style(node, key, value, important) {
         if (value === null) {
             node.style.removeProperty(key);
@@ -355,7 +352,7 @@
     	append_styles(target, "svelte-lncimr", "#banner.svelte-lncimr{overflow-y:scroll}@media only screen and (min-width: 601px){#banner.svelte-lncimr{max-width:75%;max-height:300px}}@media only screen and (max-width: 600px){#banner.svelte-lncimr{max-width:100%;max-height:200px}}");
     }
 
-    // (130:4) {:else}
+    // (208:4) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -374,26 +371,26 @@
     	};
     }
 
-    // (123:4) {#if content}
+    // (201:4) {#if content}
     function create_if_block(ctx) {
     	let h2;
     	let a;
-    	let t0_value = /*data*/ ctx[3][/*i*/ ctx[2]].org + "";
+    	let t0_value = /*data*/ ctx[2][/*i*/ ctx[1]].org + "";
     	let t0;
     	let a_href_value;
     	let t1;
     	let em;
-    	let t2_value = /*data*/ ctx[3][/*i*/ ctx[2]].summary + "";
+    	let t2_value = /*data*/ ctx[2][/*i*/ ctx[1]].summary + "";
     	let t2;
     	let t3;
     	let h4;
     	let t5;
     	let html_tag;
-    	let raw_value = /*data*/ ctx[3][/*i*/ ctx[2]].onboarding + "";
+    	let raw_value = /*data*/ ctx[2][/*i*/ ctx[1]].onboarding + "";
     	let t6;
     	let p0;
     	let t7;
-    	let t8_value = /*data*/ ctx[3][/*i*/ ctx[2]].contact_email + "";
+    	let t8_value = /*data*/ ctx[2][/*i*/ ctx[1]].contact_email + "";
     	let t8;
     	let t9;
     	let p1;
@@ -422,7 +419,7 @@
     			p1 = element("p");
     			span = element("span");
     			span.textContent = "See more organizations";
-    			attr(a, "href", a_href_value = /*data*/ ctx[3][/*i*/ ctx[2]].website);
+    			attr(a, "href", a_href_value = /*data*/ ctx[2][/*i*/ ctx[1]].website);
     			attr(a, "target", "_blank");
     			html_tag.a = t6;
     			set_style(span, "color", "blue");
@@ -449,20 +446,20 @@
     			append(p1, span);
 
     			if (!mounted) {
-    				dispose = listen(span, "click", /*click_handler*/ ctx[5]);
+    				dispose = listen(span, "click", /*click_handler*/ ctx[3]);
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*i*/ 4 && t0_value !== (t0_value = /*data*/ ctx[3][/*i*/ ctx[2]].org + "")) set_data(t0, t0_value);
+    			if (dirty & /*data, i*/ 6 && t0_value !== (t0_value = /*data*/ ctx[2][/*i*/ ctx[1]].org + "")) set_data(t0, t0_value);
 
-    			if (dirty & /*i*/ 4 && a_href_value !== (a_href_value = /*data*/ ctx[3][/*i*/ ctx[2]].website)) {
+    			if (dirty & /*data, i*/ 6 && a_href_value !== (a_href_value = /*data*/ ctx[2][/*i*/ ctx[1]].website)) {
     				attr(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*i*/ 4 && t2_value !== (t2_value = /*data*/ ctx[3][/*i*/ ctx[2]].summary + "")) set_data(t2, t2_value);
-    			if (dirty & /*i*/ 4 && raw_value !== (raw_value = /*data*/ ctx[3][/*i*/ ctx[2]].onboarding + "")) html_tag.p(raw_value);
-    			if (dirty & /*i*/ 4 && t8_value !== (t8_value = /*data*/ ctx[3][/*i*/ ctx[2]].contact_email + "")) set_data(t8, t8_value);
+    			if (dirty & /*data, i*/ 6 && t2_value !== (t2_value = /*data*/ ctx[2][/*i*/ ctx[1]].summary + "")) set_data(t2, t2_value);
+    			if (dirty & /*data, i*/ 6 && raw_value !== (raw_value = /*data*/ ctx[2][/*i*/ ctx[1]].onboarding + "")) html_tag.p(raw_value);
+    			if (dirty & /*data, i*/ 6 && t8_value !== (t8_value = /*data*/ ctx[2][/*i*/ ctx[1]].contact_email + "")) set_data(t8, t8_value);
     		},
     		d(detaching) {
     			if (detaching) detach(h2);
@@ -484,15 +481,13 @@
 
     function create_fragment(ctx) {
     	let div;
-    	let h3;
-    	let t0;
-    	let input;
+    	let h30;
     	let t1;
-    	let mounted;
-    	let dispose;
+    	let h31;
+    	let t3;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*content*/ ctx[1]) return create_if_block;
+    		if (/*content*/ ctx[0]) return create_if_block;
     		return create_else_block;
     	}
 
@@ -502,12 +497,13 @@
     	return {
     		c() {
     			div = element("div");
-    			h3 = element("h3");
-    			t0 = text("Direct action organizations near\n        ");
-    			input = element("input");
+    			h30 = element("h3");
+    			h30.textContent = "Ready to fight for a livable world?";
     			t1 = space();
+    			h31 = element("h3");
+    			h31.textContent = "Here are direct climate action organizations near you.";
+    			t3 = space();
     			if_block.c();
-    			attr(input, "type", "text");
     			attr(div, "id", "banner");
     			set_style(div, "border", "solid 1px black");
     			set_style(div, "padding", "10px");
@@ -515,23 +511,13 @@
     		},
     		m(target, anchor) {
     			insert(target, div, anchor);
-    			append(div, h3);
-    			append(h3, t0);
-    			append(h3, input);
-    			set_input_value(input, /*city*/ ctx[0]);
+    			append(div, h30);
     			append(div, t1);
+    			append(div, h31);
+    			append(div, t3);
     			if_block.m(div, null);
-
-    			if (!mounted) {
-    				dispose = listen(input, "input", /*input_input_handler*/ ctx[4]);
-    				mounted = true;
-    			}
     		},
     		p(ctx, [dirty]) {
-    			if (dirty & /*city*/ 1 && input.value !== /*city*/ ctx[0]) {
-    				set_input_value(input, /*city*/ ctx[0]);
-    			}
-
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -549,8 +535,6 @@
     		d(detaching) {
     			if (detaching) detach(div);
     			if_block.d();
-    			mounted = false;
-    			dispose();
     		}
     	};
     }
@@ -560,55 +544,63 @@
     	let city;
     	let content = false;
     	let i = 0;
+    	let data = [];
 
-    	let data = [
-    		{
-    			"org": "Declare Emergency",
-    			"summary": "Declare Emergency is an organization focused on direct action in the Washington DC area, to get the U.S. government to declare a climate emergency.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
-    			"coordinates": "38.889248, -77.050636",
-    			"city": "Washington DC",
-    			"country": "USA",
-    			"website": "https://www.declareemergency.org/",
-    			"onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714">this form</a>, and register for one of this week's Zoom calls at <a target="_blank" href="https://linktr.ee/declareemergency">https://linktr.ee/declareemergency</a></p>`,
-    			"form_url": "https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714",
-    			"events_url": "https://linktr.ee/declareemergency",
-    			"contact_email": "declareemergency@protonmail.com"
-    		},
-    		{
-    			"org": "XR DC",
-    			"summary": "XR DC is an organization focused on direct action in the Washington DC area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
-    			"coordinates": "38.889248, -77.050636",
-    			"city": "Washington DC",
-    			"country": "USA",
-    			"website": "https://www.xrdc.org/",
-    			"onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link">this form</a> and we'll be in touch with next steps!</p>`,
-    			"form_url": "https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link",
-    			"events_url": "https://www.xrdc.org/events",
-    			"contact_email": "declareemergency@protonmail.com"
-    		},
-    		{
-    			"org": "XR San Francisco",
-    			"summary": "XR San Francisco is an organization focused on direct action in the Bay Area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
-    			"coordinates": "37.733795, -122.446747",
-    			"city": "San Francisco",
-    			"country": "USA",
-    			"website": "https://extinctionrebellionsfbay.org/",
-    			"onboarding": `<p>Onboarding</p><p>1. <a target="_blank" href="https://www.youtube.com/watch?v=UKFU0kPgF_M">Watch a 30 minute orientation</a> to learn more about Extinction Rebellion SF Bay.</p><p>After watching the orientation video, sign up for a 30 minute 1:1 chat with an XR SF Bay organizer to ask any questions and find your place in our chapter:</p>
-        <ul>
-            <li><a href="https://calendly.com/gretchen-sf/30min" target="_blank">Schedule time with Gretchen</a> (outreach, general questions)</li>
-            <li><a href="https://calendly.com/xrsfwelcome/121_chat" target="_blank">Schedule time with Betsy</a> (street theater, outreach, general questions)</li>
-            <li><a href="https://calendly.com/rayekahn/30min" target="_blank">Schedule time with Raye</a> (nonviolent direct action, regenerative cultures)</li>
-            <li><a href="https://calendly.com/tiffanybbarber/30min" target="_blank">Schedule time with Tiffany</a> (digital strategy, outreach and training)</li>
-            <li><a href="https://calendly.com/leahredwood/30min" target="_blank">Schedule time with Leah</a> (action planning, allyship, finance)</li>
-            <li><a href="https://calendly.com/jadenorthrup_xrsfbay/30min" target="_blank">Schedule time with Jade</a> (social media, photo/video, tech)</li>
-            </ul>
-            <p>Alternatively: check out our <a href="https://docs.google.com/document/d/1yksVh2xTR3cZUIJy72xFVVEB_rPtL4fpRquJ1wZKZ9I/edit?usp=sharing" target="_blank">Starter Guide</a> if you'd like an in-depth read or contact a <a href="https://extinctionrebellionsfbay.org/connect" target="_blank">working group</a> if you have questions.</p>`,
-    			"form_url": "https://actionnetwork.org/forms/xr-bay-area-sign-up",
-    			"events_url": "https://extinctionrebellionsfbay.org/events/",
-    			"contact_email": "declareemergency@protonmail.com"
-    		}
-    	];
-
+    	// let data = [
+    	//     {"org": `XR ${city}`,
+    	//     "summary": `XR ${city} is an organization focused on direct action in ${city}, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.`,
+    	//     "coordinates": `${coordinates}`,
+    	//     "city": `${city}`,
+    	//     "country": "USA",
+    	//     "website": "https://www.xrdc.org/",
+    	//     "onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link">this form</a> and we'll be in touch with next steps!</p>`,
+    	//     "form_url": "https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link",
+    	//     "events_url": "https://www.xrdc.org/events",
+    	//     "contact_email": "declareemergency@protonmail.com"
+    	//     },
+    	//     {"org": "Declare Emergency",
+    	//     "summary": "Declare Emergency is an organization focused on direct action in the Washington DC area, to get the U.S. government to declare a climate emergency.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    	//     "coordinates": "38.889248, -77.050636",
+    	//     "city": "Washington DC",
+    	//     "country": "USA",
+    	//     "website": "https://www.declareemergency.org/",
+    	//     "onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714">this form</a>, and register for one of this week's Zoom calls at <a target="_blank" href="https://linktr.ee/declareemergency">https://linktr.ee/declareemergency</a></p>`,
+    	//     "form_url": "https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714",
+    	//     "events_url": "https://linktr.ee/declareemergency",
+    	//     "contact_email": "declareemergency@protonmail.com"
+    	//     },
+    	//     {"org": "XR DC",
+    	//     "summary": "XR DC is an organization focused on direct action in the Washington DC area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    	//     "coordinates": "38.889248, -77.050636",
+    	//     "city": "Washington DC",
+    	//     "country": "USA",
+    	//     "website": "https://www.xrdc.org/",
+    	//     "onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link">this form</a> and we'll be in touch with next steps!</p>`,
+    	//     "form_url": "https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link",
+    	//     "events_url": "https://www.xrdc.org/events",
+    	//     "contact_email": "extinctionrebelliondc@protonmail.com"
+    	//     },
+    	//     {"org": "XR San Francisco",
+    	//     "summary": "XR San Francisco is an organization focused on direct action in the Bay Area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    	//     "coordinates": "37.733795, -122.446747",
+    	//     "city": "San Francisco",
+    	//     "country": "USA",
+    	//     "website": "https://extinctionrebellionsfbay.org/",
+    	//     "onboarding": `<p>Onboarding</p><p>1. <a target="_blank" href="https://www.youtube.com/watch?v=UKFU0kPgF_M">Watch a 30 minute orientation</a> to learn more about Extinction Rebellion SF Bay.</p><p>After watching the orientation video, sign up for a 30 minute 1:1 chat with an XR SF Bay organizer to ask any questions and find your place in our chapter:</p>
+    	//     <ul>
+    	//         <li><a href="https://calendly.com/gretchen-sf/30min" target="_blank">Schedule time with Gretchen</a> (outreach, general questions)</li>
+    	//         <li><a href="https://calendly.com/xrsfwelcome/121_chat" target="_blank">Schedule time with Betsy</a> (street theater, outreach, general questions)</li>
+    	//         <li><a href="https://calendly.com/rayekahn/30min" target="_blank">Schedule time with Raye</a> (nonviolent direct action, regenerative cultures)</li>
+    	//         <li><a href="https://calendly.com/tiffanybbarber/30min" target="_blank">Schedule time with Tiffany</a> (digital strategy, outreach and training)</li>
+    	//         <li><a href="https://calendly.com/leahredwood/30min" target="_blank">Schedule time with Leah</a> (action planning, allyship, finance)</li>
+    	//         <li><a href="https://calendly.com/jadenorthrup_xrsfbay/30min" target="_blank">Schedule time with Jade</a> (social media, photo/video, tech)</li>
+    	//         </ul>
+    	//         <p>Alternatively: check out our <a href="https://docs.google.com/document/d/1yksVh2xTR3cZUIJy72xFVVEB_rPtL4fpRquJ1wZKZ9I/edit?usp=sharing" target="_blank">Starter Guide</a> if you'd like an in-depth read or contact a <a href="https://extinctionrebellionsfbay.org/connect" target="_blank">working group</a> if you have questions.</p>`,
+    	//     "form_url": "https://actionnetwork.org/forms/xr-bay-area-sign-up",
+    	//     "events_url": "https://extinctionrebellionsfbay.org/events/",
+    	//     "contact_email": "dawg@xrsfbay.org"
+    	//     },
+    	// ]
     	onMount(async () => {
     		// console.log(page);
     		ipToCoordinates();
@@ -638,23 +630,80 @@
     			"lng": coordinates[1]
     		};
 
-    		$$invalidate(0, city = json.city);
-    		$$invalidate(1, content = true);
-    	} // i = 0;
-    	// coordinates = {"lat": 38.886503, "lng": -77.1842802};
+    		city = json.city;
+    		$$invalidate(0, content = true);
 
-    	function input_input_handler() {
-    		city = this.value;
-    		$$invalidate(0, city);
-    	}
+    		$$invalidate(2, data = $$invalidate(2, data = [
+    			{
+    				"org": `XR ${city}`,
+    				"summary": `XR ${city} is an organization focused on direct action in ${city}, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.`,
+    				"coordinates": `${coordinates}`,
+    				"city": `${city}`,
+    				"country": "USA",
+    				"website": "https://www.xrdc.org/",
+    				"onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/sign-your-affinity-group-up-for-g7-cop26">this form</a> and we'll be in touch with next steps!</p>`,
+    				"form_url": "https://actionnetwork.org/forms/sign-your-affinity-group-up-for-g7-cop26",
+    				"events_url": "https://www.xrdc.org/events",
+    				"contact_email": `xr${city.charAt(0).toLowerCase()}${city.slice(1)}@...`
+    			},
+    			{
+    				"org": "Declare Emergency",
+    				"summary": "Declare Emergency is an organization focused on direct action in the Washington DC area, to get the U.S. government to declare a climate emergency.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    				"coordinates": "38.889248, -77.050636",
+    				"city": "Washington DC",
+    				"country": "USA",
+    				"website": "https://www.declareemergency.org/",
+    				"onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714">this form</a>, and register for one of this week's Zoom calls at <a target="_blank" href="https://linktr.ee/declareemergency">https://linktr.ee/declareemergency</a></p>`,
+    				"form_url": "https://actionnetwork.org/forms/d02bf10d60ec3acb502016dc0f8bf1226deb8714",
+    				"events_url": "https://linktr.ee/declareemergency",
+    				"contact_email": "declareemergency@protonmail.com"
+    			},
+    			{
+    				"org": "XR DC",
+    				"summary": "XR DC is an organization focused on direct action in the Washington DC area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    				"coordinates": "38.889248, -77.050636",
+    				"city": "Washington DC",
+    				"country": "USA",
+    				"website": "https://www.xrdc.org/",
+    				"onboarding": `<p>To get onboarded, fill out <a target="_blank" href="https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link">this form</a> and we'll be in touch with next steps!</p>`,
+    				"form_url": "https://actionnetwork.org/forms/xrdc-rebel-card?source=direct_link",
+    				"events_url": "https://www.xrdc.org/events",
+    				"contact_email": "extinctionrebelliondc@protonmail.com"
+    			},
+    			{
+    				"org": "XR San Francisco",
+    				"summary": "XR San Francisco is an organization focused on direct action in the Bay Area, based on XR principles.  We're looking for supporters who are ready to take to the streets with us and are willing to provide capacity, help with operations, and be willing to get arrested.",
+    				"coordinates": "37.733795, -122.446747",
+    				"city": "San Francisco",
+    				"country": "USA",
+    				"website": "https://extinctionrebellionsfbay.org/",
+    				"onboarding": `<p>Onboarding</p><p>1. <a target="_blank" href="https://www.youtube.com/watch?v=UKFU0kPgF_M">Watch a 30 minute orientation</a> to learn more about Extinction Rebellion SF Bay.</p><p>After watching the orientation video, sign up for a 30 minute 1:1 chat with an XR SF Bay organizer to ask any questions and find your place in our chapter:</p>
+        <ul>
+            <li><a href="https://calendly.com/gretchen-sf/30min" target="_blank">Schedule time with Gretchen</a> (outreach, general questions)</li>
+            <li><a href="https://calendly.com/xrsfwelcome/121_chat" target="_blank">Schedule time with Betsy</a> (street theater, outreach, general questions)</li>
+            <li><a href="https://calendly.com/rayekahn/30min" target="_blank">Schedule time with Raye</a> (nonviolent direct action, regenerative cultures)</li>
+            <li><a href="https://calendly.com/tiffanybbarber/30min" target="_blank">Schedule time with Tiffany</a> (digital strategy, outreach and training)</li>
+            <li><a href="https://calendly.com/leahredwood/30min" target="_blank">Schedule time with Leah</a> (action planning, allyship, finance)</li>
+            <li><a href="https://calendly.com/jadenorthrup_xrsfbay/30min" target="_blank">Schedule time with Jade</a> (social media, photo/video, tech)</li>
+            </ul>
+            <p>Alternatively: check out our <a href="https://docs.google.com/document/d/1yksVh2xTR3cZUIJy72xFVVEB_rPtL4fpRquJ1wZKZ9I/edit?usp=sharing" target="_blank">Starter Guide</a> if you'd like an in-depth read or contact a <a href="https://extinctionrebellionsfbay.org/connect" target="_blank">working group</a> if you have questions.</p>`,
+    				"form_url": "https://actionnetwork.org/forms/xr-bay-area-sign-up",
+    				"events_url": "https://extinctionrebellionsfbay.org/events/",
+    				"contact_email": "dawg@xrsfbay.org"
+    			}
+    		]));
+
+    		console.log(data[0]);
+    	} // for (j = 0; j < data.length ; j++) {
+    	//     if (city == data[j].city) {
 
     	const click_handler = function () {
-    		i < 2
-    		? $$invalidate(2, i = i + 1)
-    		: $$invalidate(2, i = 0);
+    		i < data.length - 1
+    		? $$invalidate(1, i = i + 1)
+    		: $$invalidate(1, i = 0);
     	};
 
-    	return [city, content, i, data, input_input_handler, click_handler];
+    	return [content, i, data, click_handler];
     }
 
     class Embed extends SvelteComponent {
