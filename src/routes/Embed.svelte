@@ -1,8 +1,6 @@
 <script>
-import { goto } from '$app/navigation';
 
-
-    import {afterUpdate, getContext, onMount, setContext} from 'svelte';
+    import {onMount} from 'svelte';
     // import LoadingSpinner from "$lib/LoadingSpinner.svelte"
     // import { Geocoder } from '$lib/geocoder';
 
@@ -15,6 +13,10 @@ let country;
 let geocoder_input;
 let content = false;
 let i = 0;
+
+let know_others = false;
+let arrest;
+let conditional_commit;
 
 let data = [];
 
@@ -194,22 +196,157 @@ console.log(data[0]);
     <div>City: <p id="city"></p></div> -->
 
     <div id="banner" style="border: solid 1px black; padding: 10px;">
-    <!-- <h3>Get involved in direct action near <span style="text-decoration: underline">Washington DC</span></h3> -->
-    <h3>Ready to fight for a livable world?</h3>
-    <h3>Here are direct climate action organizations near you.</h3>
+        <h3>Want to make <span style="text-decoration">underline</span> climate action?</h3>
+        <h3>Onboard the movement.  <em>When 3.5% of people have gone into the streets, we've never failed to bring about change.</em></h3>
+        <p>Fill out the information below, and you'll be connected with leading climate action organizations near you.</p>
+        <form>
+            <!-- <label for="name">Name</label>
+            <input type="text" name="name"> -->
+            <!-- <label for="name">Phone number (Optional)</label>
+            <input type="text" name="name" placeholder="+1 555 234 5678"> -->
+
+            <!-- Can process zip code using geocoder, to then determine the orgs to send intros to -->
+
+            <!-- <label for="skills">Skills you'd like to contribute</label>
+            <input type="text" name="skills"> -->
+
+            <label for="arrest">Are you willing to risk arrest for climate action?</label>
+            <!-- <p><em>Clarifying text about arrest.</em></p> -->
+            <select bind:value={arrest} name="arrest">
+                <option disabled selected>Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- <label for="support">What would help you commit to joining an action and risking arrest?</label>
+            <select name="support">
+                <option>I need to know there will be enough other people risking arrest, to give us a high chance of making the action a success.</option>
+                <div>
+                    <label>What kind of chance does the action need for success, before you'll be willing to join?</label>
+                    <input type="range" value="40">
+                </div>
+                <option>I need to know it won't affect my job or my pay.</option>
+                <option>I need to know that transport, childcare, bail, and all costs will be covered for me.</option>
+                <option>I need to know my risks legally and our legal defense.</option>
+                <option>I need a friend willing to join me.</option>
+                <option>I want to meet other resistors/people risking arrest in a gathering (e.g. party, hangout, social)</option>
+                <option>Other</option>
+            </select> -->
+
+            {#if arrest == "no" || arrest == "other"}
+            <label for="support">What would help you commit to joining an action and risking arrest?</label>
+            <div class="checkbox">
+            <input type="checkbox" bind:value={know_others}><label>I need to know there will be enough other people risking arrest, to give us a high chance of making the action a success.</label><br/>
+            </div>
+            {#if know_others}
+            <div class="radio">
+            <label>What kind of chance does the action need for success, before you'll be willing to join?</label>
+            <input type="range" value="40">
+            </div>
+            {/if}
+            <div class="checkbox">
+            <input type="checkbox"><label>I need to know it won't affect my job or my pay.</label><br/>
+            </div>
+            <div class="checkbox">
+            <input type="checkbox"><label>I need to know that transport, childcare, bail, and all costs will be covered for me.</label><br/>
+            </div>
+            <div class="checkbox">
+            <input type="checkbox"><label>I need to know my risks legally and our legal defense.</label><br/>
+            </div>
+            <div class="checkbox">
+            <input type="checkbox"><label>I need a friend willing to join me.</label><br/>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox"><label>I want to meet other resistors/people risking arrest in a gathering (e.g. party, hangout, social)</label><br/>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox"><label>Other</label><br/>
+            </div>
+            {/if}
+
+            <!-- <select name="support">
+                <option>I need to know there will be enough other people risking arrest, to give us a high chance of making the action a success.</option>
+                <div>
+                    <label>What kind of chance does the action need for success, before you'll be willing to join?</label>
+                    <input type="range" value="40">
+                </div>
+                <option>I need to know it won't affect my job or my pay.</option>
+                <option>I need to know that transport, childcare, bail, and all costs will be covered for me.</option>
+                <option>I need to know my risks legally and our legal defense.</option>
+                <option>I need a friend willing to join me.</option>
+                <option>I want to meet other resistors/people risking arrest in a gathering (e.g. party, hangout, social)</option>
+                <option>Other</option>
+            </select> -->
+
+            {#if arrest == "no" || arrest == "other"}
+            <label for="conditional_commit">If we could provide these supports, are you willing to conditionally commit to joining actions in the future?</label>
+            <!-- <p><em>Clarifying text about arrest.</em></p> -->
+            <select bind:value={conditional_commit} name="conditional_commit">
+                <option disabled selected>Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="other">Other</option>
+            </select>
+            {/if}
+
+            <label for="support_roles">
+            {#if conditional_commit == "no" || conditional_commit == "other"}
+                If you're still not willing to commit, are you willing to support direct action organizations in other ways?  Select any that apply.
+            {:else if arrest == "yes" || conditional_commit == "yes"}
+            In addition to risking arrest, are you interested in supporting actions and organizations in other ways?
+            {/if}
+            </label>
+            {#if conditional_commit == "no" || conditional_commit == "other" || arrest == "yes" || conditional_commit == "yes"}
+            <div class="checkbox"><input type="checkbox"><label>Local team camptain</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Fundraising</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Technical / computer support</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Canvassing and field organizing</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Phone banking</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Legal support</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Transportation support</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Childcare support around actions</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Art, design, media, graphics, printing</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Yard sign outreach</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Donating to climate action organizations</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Software / web development support</label></div>
+            <div class="checkbox"><input type="checkbox"><label>Other ways to contribute</label></div>
+
+                <!-- <label name="support_other">Other ways you'd like to contribute</label>
+                <input name="support_other"> -->
+            {/if}
+
+            {#if arrest == "yes"}
+            <label for="email">Email*</label>
+            <input type="email" name="email" placeholder="jane@example.com" required>
+            <label for="zip">Zip code</label>
+            <input type="text" name="zip">
+            <label for="number">Mobile number</label>
+            <em>We'll connect via secure messaging applications.</em>
+            <input type="tel" name="number">
+            <br/>
+            <button type="button">Submit to local organizations</button>
+            {/if}
+        </form>
+    <!-- <h3>Ready to fight for a livable world?</h3>
+    <h3>Here are direct climate action organizations near you.</h3> -->
     <!-- <h3>
     <Geocoder placeholder={"Enter new location"} accessToken="pk.eyJ1IjoibGV0b3VycG93ZXJzY29tYmluZSIsImEiOiJjazFmN3N0eTUwb3JwM2JwYWk4ZXB1enNtIn0._UjpOqZIeiWqhscosubipw" on:result={function() {console.log(e)}}></Geocoder>
     </h3> -->
-    {#if content}
+
+    <!-- {#if content}
     <h2><a href={data[i].website} target="_blank">{data[i].org}</a></h2>
     <em>{data[i].summary}</em>
     <h4>Want to get involved?</h4>
-    {@html data[i].onboarding}
+    {@html data[i].onboarding} -->
+
     <!-- <p>Contact: {data[i].contact_email}</p> -->
-    <p><span style="color: blue; text-decoration: underline; cursor: pointer;" on:click={function() { i < (data.length - 1) ? i = i + 1 : i = 0; document.getElementById("banner").scrollTop = 80;}}>See more organizations</span></p>
+
+    <!-- <p><span style="color: blue; text-decoration: underline; cursor: pointer;" on:click={function() { i < (data.length - 1) ? i = i + 1 : i = 0; document.getElementById("banner").scrollTop = 80;}}>See more organizations</span></p>
     {:else}
     <p><em>Loading ...</em></p>
-    {/if}
+    {/if} -->
+
     <!-- {#each data as item}
     <h1>{item.org}</h1>
     {@html item.onboarding}
@@ -217,6 +354,10 @@ console.log(data[0]);
     </div>
 
     <style>
+      .checkbox label, input[type="radio"], input[type="checkbox"] {
+        display: inline;
+    }
+
     #banner {
         overflow-y: scroll;
     }
@@ -231,5 +372,13 @@ console.log(data[0]);
             max-width: 100%;
             max-height: 200px;
      }
+    }
+
+    form label, form p, form select, form input {
+        display: block;
+    }
+
+    form label {
+        margin-top: 10px;
     }
     </style>
