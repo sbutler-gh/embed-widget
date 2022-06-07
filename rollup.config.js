@@ -14,7 +14,8 @@ export default {
 	input: 'src/routes/embed.js',
 	output: {
 		format: 'iife',
-		file: 'dist.js',
+		file: './static/dist.js',
+		// file: 'dist.js',
     sourcemap: false,
 	},
 	plugins: [
