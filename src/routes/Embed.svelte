@@ -101,7 +101,7 @@ let data = [];
         {#if !submit_results}
         <div class="lead" style="text-align: center">
             <h3>Ready for <span style="color: palegreen; font-weight: bold">climate action</span>?</h3>
-            <p style="">Connect with local climate groups, and help drive collective action.</p>
+            <p style="">Connect with local climate groups, and help drive direct action.</p>
             <!-- <p>It's time we take the lead.  Add your details below, and we'll help you empower collective action.</p> -->
             </div>
 

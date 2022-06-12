@@ -496,7 +496,7 @@
     			div0 = element("div");
 
     			div0.innerHTML = `<h3>Ready for <span style="color: palegreen; font-weight: bold">climate action</span>?</h3> 
-            <p style="">Connect with local climate groups, and help drive collective action.</p>`;
+            <p style="">Connect with local climate groups, and help drive direct action.</p>`;
 
     			t5 = space();
     			form = element("form");
