@@ -67,10 +67,10 @@ let data = [];
 
         var formData = new FormData(e.target);
 
-        // formData.append('arrest', arrest);
-        // formData.append('support_needed', support_needed);
+        formData.append('arrest', arrest);
+        formData.append('support_needed', support_needed);
         // formData.append('chance_of_success_needed', chance_of_success_needed);
-        // formData.append('other_support_needed', other_support_needed);
+        formData.append('other_support_needed', other_support_needed);
         // formData.append('contribution_areas', contribution_areas);
         // formData.append('other_contributions', other_contributions);
 
@@ -82,7 +82,7 @@ let data = [];
 
         console.log(json);
 
-        // object.support_needed = support_needed;
+        object.support_needed = support_needed;
         // object.contribution_areas = contribution_areas;
 
         submit_results = object;
@@ -115,25 +115,90 @@ let data = [];
                 <div class="form-item">
                     <label for="address">Address</label>
                     <input id="address_input" style="" type="text" name="address" placeholder="123 Main Street, New York, NY, 12345" required>
-                    <!-- <input style="width: 60px;" type="text" name="postal" bind:value={postal} placeholder="" required> -->
+                    <!-- <label for="postal">Zip Code</label>
+                    <input style="width: 60px;" type="text" name="postal" bind:value={postal} placeholder="" required> -->
                     </div>
                     <div class="form-item">
+                        <label for="arrest" class="">Are you willing to risk arrest in frontline actions?</label>
+                        <div class="radio" style="margin: auto; width:fit-content;">
+                            <input type="radio" value="yes" bind:group={arrest} required><label>Yes</label>
+                            <input type="radio" value="no" bind:group={arrest} required><label>No</label>
+                            <input type="radio" value="other" bind:group={arrest} required><label>Other</label>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-item">
                         <label for="interests">Describe your interests and skills</label>
                         <textarea style="width: 300px;" name="interests"></textarea>
-                        <!-- <input style="width: 300px; font-size: 16px; margin-top: 5px;" type="text" name="interests" required> -->
-                    </div>
+                    </div> -->
             </div>
+            {#if arrest == "no" || arrest == "other"}
+            <div class="support" style="">
+                <label for="support"  style="width: 90%; font-style: italic; font-size: 15px;">What would support you in joining frontline actions and risking arrest?</label>
+                <div class="checkbox">
+                <input type="checkbox" bind:group={support_needed} value="enough_participants"><label>I need to know there will be enough people participating, to give our action a high chance of success (e.g. generating significant media attention)</label><br/>
+                </div>
+                <!-- {#if support_needed.includes('enough_participants')}
+                <div class="range">
+                <label style="width: 90%; font-style: italic; font-size: 15px;">How much confidence do you need before you're willing to risk arrest?</label>
+                <input type="range" bind:value={chance_of_success_needed}>
+                <input type="text" class="range_input" bind:value={chance_of_success_needed} min={0} max={99}><span style="font-size: 15px">% chance of success</span>
+                </div>
+                {/if} -->
+                <!-- {#if support.includes('enough_participants')}
+                <div class="range">
+                <label style="width: 90%; font-style: italic; font-size: 15px;">How confident do you need to be in an action's chance of success, before you'll be willing to participate?</label>
+                <input type="range" bind:value={percent_success}>
+                <input type="number" class="range_input" bind:value={percent_success} min="0" max="99"><span>%</span>
+                </div>
+                {/if} -->
+                <div class="checkbox">
+                <input type="checkbox" bind:group={support_needed} value="job_security"><label>I need to know participating won't affect my job security or ability to get employement.</label><br/>
+                </div>
+                <div class="checkbox">
+                <input type="checkbox" bind:group={support_needed} value="costs_will_be_covered"><label>I need to know that transport, childcare, bail, and all costs of participation will be covered for me.</label><br/>
+                </div>
+                <div class="checkbox">
+                <input type="checkbox" bind:group={support_needed} value="legal_information"><label>I need to know the legal risks and the legal support provided to participants.</label><br/>
+                </div>
+                <div class="checkbox">
+                <input type="checkbox" bind:group={support_needed} value="friend_to_join"><label>I need a friend willing to join me.</label><br/>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" bind:group={support_needed} value="meet_others"><label>I want to meet others locally who are willing to risk arrest</label><br/>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" bind:group={support_needed} value="other"><label>Other</label><br/>
+                    {#if support_needed.includes('other')}
+                    <label style="font-size: 14px; font-style: italic;">What else would support you in risking arrest?</label>
+                    <textarea type="text" bind:value={other_support_needed}></textarea>
+                    {/if}
+                </div>
+                </div>
+            {/if}
             <div class="form-item">
                 <button class="greenbutton">Submit</button>
                 </div>
             </form>
 
                 {:else}
-                <p><em>Perfect!  Now look out for an email connecting you to local climate action groups in your area, and more information about leading real change.</em></p>
-                <p>(This is a demo of what the form submission could look like — there isn't an email being sent at this time.)</p>
+                <p><em>Success!  Now look out for an email connecting you to local climate action groups in your area, and information about leading direct action.</em></p>
+                <p>This is a demo — no email being sent at this time.  You can see the information submitted through the form here:</p>
                 <p><strong>Email</strong>: {submit_results.email}</p>
                 <p><strong>Address</strong>: {submit_results.address}</p>
-                <p><strong>Interests and skills</strong>: {submit_results.interests}</p>
+                <p><strong>Willing to get arrested</strong>: {submit_results.arrest}</p>
+                {#if submit_results.support_needed}
+                <p><strong>Support needed:</strong></p>
+                <ul>
+                    {#each submit_results.support_needed as support}
+                    <li>{support}</li>
+                    {/each}
+                    {#if submit_results.other_support_needed != "undefined"}
+                    <li>{submit_results.other_support_needed}</li>
+                    {/if}
+                </ul>
+                {/if}
+                <!-- <p><strong>Interests and skills</strong>: {submit_results.interests}</p> -->
                 <!-- <p><strong>Willing to risk arrest?</strong>: {arrest}</p> -->
                 {/if}
 
@@ -178,6 +243,12 @@ let data = [];
         #banner {
             max-width: fit-content;
             max-height: 300px;
+     }
+
+     .support {
+        margin: auto;
+        width: 400px;
+        margin-top: 25px;
      }
 
      .lead {
