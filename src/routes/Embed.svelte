@@ -25,7 +25,7 @@ let data = [];
 
     onMount(async() => {
 
-//   ipToCoordinates()
+  ipToCoordinates()
 
   })
 
@@ -115,9 +115,15 @@ let data = [];
                 <div class="form-item">
                     <label for="address">Address</label>
                     <input id="address_input" style="" type="text" name="address" placeholder="123 Main Street, New York, NY, 12345" required>
-                    <!-- <label for="postal">Zip Code</label>
-                    <input style="width: 60px;" type="text" name="postal" bind:value={postal} placeholder="" required> -->
                     </div>
+                <!-- <div class="form-item">
+                    <label for="postal">Postal Code</label>
+                    <input style="width: 80px;" type="text" name="postal" bind:value={postal} placeholder="" required>
+                </div>
+                    <div class="form-item">
+                        <label for="country">Country</label>
+                        <input style="width: 60px" type="text" name="country" bind:value={country} placeholder="" required>
+                    </div> -->
                     <div class="form-item">
                         <label for="arrest" class="">Are you willing to risk arrest in frontline actions?</label>
                         <div class="radio" style="margin: auto; width:fit-content;">
@@ -182,12 +188,12 @@ let data = [];
             </form>
 
                 {:else}
-                <p><em>Success!  Now look out for an email connecting you to local climate action groups in your area, and information about leading direct action.</em></p>
-                <p>This is a demo — no email being sent at this time.  You can see the information submitted through the form here:</p>
+                <p><em>Success!  Now look out for an email connecting you to direct action groups in your area, and information about direct action.</em></p>
+                <p>This is a demo — no email being sent at this time.  You can see the information submitted through the form here, which likewise would be forwarded to any participating organizations in the vicinity of {submit_results.address}</p>
                 <p><strong>Email</strong>: {submit_results.email}</p>
                 <p><strong>Address</strong>: {submit_results.address}</p>
                 <p><strong>Willing to get arrested</strong>: {submit_results.arrest}</p>
-                {#if submit_results.support_needed}
+                {#if submit_results.support_needed.length > 0}
                 <p><strong>Support needed:</strong></p>
                 <ul>
                     {#each submit_results.support_needed as support}
@@ -239,7 +245,7 @@ let data = [];
         font-family: Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
     }
 
-    @media only screen and (min-width: 601px) {
+    @media only screen and (min-width: 801px) {
         #banner {
             max-width: fit-content;
             max-height: 300px;
@@ -293,7 +299,7 @@ let data = [];
 
      
     }
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 800px) {
         #banner {
             max-width: 100%;
             max-height: 200px;
